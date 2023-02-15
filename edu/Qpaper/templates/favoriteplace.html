@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>favorite</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,700' rel='stylesheet' type='text/css'>
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap-datetimepicker.min.css' %}" rel="stylesheet">  
+    <link href="{% static 'css/flexslider.css' %}" rel="stylesheet">
+    <link href="{% static 'css/templatemo-style.css' %}" rel="stylesheet">
+</head>
+<body onLoad="initialize()">
+    <div class="tm-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-4 col-sm-3 tm-site-name-container">
+                    <a href="#" class="tm-site-name">Hotel Booking</a>	
+                </div>
+                <div class="col-lg-6 col-md-8 col-sm-9">
+                    <div class="mobile-menu-icon">
+                    <i class="fa fa-bars"></i>
+                  </div>
+                    <nav class="tm-nav">
+                      <ul>
+                          <li><a href="{% url 'index' %}" class="active">Home</a></li>
+                          <li><a href="{% url 'about' %}">About</a></li>
+                          <li><a href="{% url 'alltourse' %}">Our Tours</a></li>
+                          <li><a href="{% url 'contact' %}">Contact</a></li>
+                      </ul>
+                  </nav>		
+                </div>				
+            </div>
+        </div>	  	
+    </div>
+    <html >
+
+                  <div class="col-sm-offset-1" id="map_canvas" style="width:500; height:500"></div>
+                  <br>
+                  <input type="text" id="lat">
+                  <input type="text" id="lng">            
+<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script> 
+<style>
+  body{
+    text-align:center;
+  }
+  .gmap3{
+    margin: 20px auto;
+    border: 1px dashed #C0C0C0;
+    width: 500px;
+    height: 500px;
+  }
+</style>    
+<script type="text/javascript">
+   var map;
+ function initialize() {
+ var myLatlng = new google.maps.LatLng(36.85341604753753,10.176080866332995);
+ var myOptions = {
+ zoom: 14,
+ minZoom:14,
+ center: myLatlng,
+ draggable:false,
+ mapTypeId: google.maps.MapTypeId.SATELLITE
+ }
+map = new google.maps.Map(document.getElementById("map_canvas"), myOptions); 
+ var marker = new google.maps.Marker({
+
+
+draggable: true,
+position: myLatlng, 
+map: map,
+  });
+google.maps.event.addListener(marker, 'dragend', function (event) {
+document.getElementById("lat").value = this.getPosition().lat();
+document.getElementById("lng").value = this.getPosition().lng();
+}
+); 
+}
+</script>
+</body>
+</html>
+</body>
+</html>

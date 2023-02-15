@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>search</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,700' rel='stylesheet' type='text/css'>
+     <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+     <link href="{% static 'css/bootstrap-datetimepicker.min.css' %}" rel="stylesheet">  
+     <link href="{% static 'css/flexslider.css' %}" rel="stylesheet">
+    <link href="{% static 'css/templatemo-style.css' %}" rel="stylesheet">
+</head>
+<style>
+    #hotel-list{
+        box-shadow: 20rem;
+        display: inline;
+    }
+    #booknow-btn{
+        font-size: medium;
+        font-weight: 50rem;
+        background-color: #32abaf;
+        border-top-left-radius: 2rem;
+        border-bottom-right-radius: 2rem;
+    }
+
+    .list{
+        margin-top: 1rem;
+        padding: 2rem 2rem;
+        display: inline;
+    }
+    
+</style>
+<body>
+    <div class="mx-4 border border-primary">
+        <form method="post">
+            {% csrf_token %}
+            <input type="radio" name="star" />
+            <label>5 star</label><br>
+
+            <button type="submit" class="btn btn-primary">search</button>
+        </form>
+    </div>
+    <div class="serch-result">
+        <!-- {{location}} -->
+        {% if messages %}
+        {% for mess in messages %}
+            <p class="text-primary">{{mess}}</p>
+        {% endfor %}
+        {% endif %}
+        {% if location %}
+        <h2> You search {{search}}</h2>
+    {% for i in location %}
+    <div class="col-lg-3 col-md-3 col-sm-3 list border border-primary d-flex flex-row" style="border-radius: 2rem; border-color: solid #35ddf3; margin: 5rem 5rem;">
+        <div class="tm-home-box-1 tm-home-box-1-1 tm-home-box-1-center">
+            <img src="{{i.Event_img.url}}" alt="img not found" class="img-responsive" width="500rem" style="border-radius: 2rem ;">
+            <!-- <img src="{% static 'img/index-01.jpg' %}" alt="image" class="img-responsive"> -->
+            <a href="{% url 'bookingform' i.id %}">
+                
+                <div style="border-radius:1rem;font-size: medium; font-style: oblique; font-family: serif; color: rgb(7, 61, 131); ">
+                    <span class="container" style="border-radius: 5rem ;font-weight: 5rem;"><stron>{{i.hotel_name}}</stron></span>
+                    
+                    <span class="container-fluid" style="border-radius: 2rem ;"><h5>Rs <strong>{{i.amount}}.00</strong></span></h5><br>
+                    <!-- <span class="container-fluid py-2"><h5><strong>{{i.availble_date}}.00</strong></span></h5><br> -->
+                </div>
+                <span style="font-size: medium; font-weight: 5rem; font-family:sans-serif; margin-top: 5rem; color:rgb(60, 90, 155) !important;">{{i.description}}</span>
+                <button class="btn btn-block text-uppercase mt-2 text-white btn-sm"  id="booknow-btn">Book Now</button>		
+            </a>	
+            <!-- <span class="container-fluid py-2"><h5><strong>{{i.availble_date}}.00</strong></span></h5><br>		 -->
+        </div>			
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>Sorry We are unable to find {{search}}</p>
+    {% endif %}
+    </div>
+</body>
+</html>
+
+<!-- {% if loaction %}
+    {% for i in loaction %}
+    <div class="conatiner bg-dark">
+            <div class=" col-md-4 col-sm-4 list" id="hotel-list">
+                <div class="tm-home-box-1 tm-home-box-1-2 tm-home-box-1-center">
+                    <img src="{{i.Event_img.url}}" alt="img not found" class="img-responsive img" width="500rm" style="border-radius: 2rem ;">
+                    <a href="{% url 'bookingform' i.id %}">
+                        
+                        <div class="tm-green-gradient-bg tm-city-price-container">
+                            <span class="container text-white" >{{i.hotel_name}}</span>
+                            <span class="container-fluid mt-2" ><h5>Rs <strong>{{i.amount}}.00</strong></span></h5><br>
+                
+                        </div>
+                        <span class="text-primary text-xl" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; margin-top: 20rem;">{{i.description}}</span>
+                        <button class="btn btn-block text-uppercase bg-dark text-white btn-sm">Book Now</button>		
+                    </a>			
+                </div>	      
+            </div>
+    </div>
+    {% endfor %}
+
+    {% else %}
+    <p>Sorry We are unable to find {{search}}</p>
+
+    {% endif %} -->

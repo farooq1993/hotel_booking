@@ -1,0 +1,2 @@
+1. how to implement range dynamicly in python django 
+https://www.youtube.com/watch?v=vJEgWpYvwNo

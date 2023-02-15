@@ -1,0 +1,202 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Booking form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=|Roboto+Sans:400,700|Playfair+Display:400,700">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fancybox.min.css' %}">
+    
+    <link rel="stylesheet" href="{% static 'fonts/ionicons/css/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/fontawesome/css/font-awesome.min.css' %}">
+
+    <!-- Theme Style -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+    
+    <header class="site-header js-site-header" style="background-image: url();">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <button class="mt-5 btn btn-success text-white" style="float: left; margin: 20px 20px;"><div class="col-6 col-lg-4 site-logo text-primary" data-aos="fade"><a href="{% url 'alltourse' %}">Home</a></div></button>
+      </div>
+    </header>
+    <!-- END head -->
+    </section>
+    
+    <!-- <div>
+      <div>
+        <img src="{% static 'img/hotel.jpg' %}" alt="Hotel Image"  height="400rem" width="500rem" style="float: right;"/>
+      </div>
+    </div> -->
+    <div class="col-md-12" data-aos="fade-up" data-aos-delay="200" style="margin-left:5rem ;">
+      <form method="POST">
+        {% csrf_token %}
+      <div>
+       
+        <!-- For Loop -->
+        <div class="col-lg-3 col-md-4 col-sm-3 rounded-top border border-success">
+          <div class="tm-home-box-1 tm-home-box-1-2 tm-home-box-1-center">
+              <img src="{{obj.Event_img.url}}" alt="img not found" class="img-responsive" width="500rem"> 
+              <img src="{{ obj.place_img.url }}" alt="image" class="img-responsive" style="margin-top:2rem ;">
+                <a href="#">
+                  
+                   <div class="tm-green-gradient-bg tm-city-price-container">
+                      <span>Hotel Name: {{obj.hotel_name}}</span><br> 
+                      <span name="hote_add"><i class="fa-sharp fa-regular fa-location-dot"></i>: {{obj.address}}</span><br>
+                  </hr>
+                      <span name="amount" id="amount"><strong>Hotel Price: Rs.{{obj.amount}}</strong></span><br>
+                      
+                </hr>
+                <p>Star Ratings</p>
+                <caption class="fa fa-star" style="color: orange;"></caption>
+                  </div>	 
+              </a>			
+          </div>	
+          <!--  endfor 			 -->
+        </div>
+    <!-- END section -->
+
+    <!-- {% for book in single_tour %}
+        <p>{{book.name}}</p><br>
+      <h6>{{book.amount}}</h6>
+    {% endfor %} -->
+    <section class="section contact-section" id="next">
+      <!-- <form method="POST" > -->
+        
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8" data-aos="fade-up" data-aos-delay="100">
+              
+              <form action="#" method="post" class="bg-white p-md-5 p-4 mb-5 border">
+                <div class="row">
+                  <div class="col-md-6 form-group">
+                     <label class="text-black font-weight-bold" for="name">Name</label>
+                    <input type="text" id="name" class="form-control" name="name" required>
+                  </div>
+                  <div class="col-md-6 form-group">
+                    <label class="text-black font-weight-bold" for="phone">Phone</label>
+                    <input type="number" id="phone" class="form-control" name="phone"  required>
+                  </div>
+                </div>
+            
+                <div class="row">
+                  <div class="col-md-12 form-group">
+                    <label class="text-black font-weight-bold" for="email">Email</label>
+                    <input type="email" id="email" class="form-control" name="email" required>
+                  </div>
+                </div>
+  
+                <div class="row">
+                  <div class="col-md-6 form-group">
+                    <label class="text-black font-weight-bold" for="checkin_date">Date Check In</label>
+                    <input type="date" id="checkin_date" class="form-control" name="checkindate" required>
+                  </div>
+                  <div class="col-md-6 form-group">
+                    <label class="text-black font-weight-bold" for="checkout_date">Date Check Out</label>
+                    <input type="date" id="checkout_date" class="form-control" name="checkoutdate" required>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12 form-group">
+                    <label class="text-black font-weight-bold" for="email">Rooms Requiremnts</label>
+                    <input type="number" id="roomsreq" class="form-control" name="numberofrooms" max="15" required>
+                  </div>
+                </div>
+  
+                 <div class="row">
+                  <div class="col-md-6 form-group">
+                    <label for="adults" class="font-weight-bold text-black">Person</label>
+                    <input type="number" id="roomsreq" class="form-control" name="numberofadult" max="15" required>
+                  </div>
+
+                  <div class="row">
+                    <div class="row">
+                      <div class="col-md-6 form-group" style="margin-left:3rem ;">
+                        <label class="text-black font-weight-bold" for="Total">Total Amount</label>
+                        <input type="number" id="totalamount" class="form-control" name="total_amount" readonly onchange="totalpay()">
+                      </div>
+                    </div>
+                <div class="row">
+                  <div class="col-md-6 form-group">
+                    <input type="submit" value="Book Now" class="btn btn-primary text-white py-3 px-4 font-weight-bold" style="margin-left:5rem ;">
+                    
+                  </div>
+                </div>
+              
+              </div>
+              </form> 
+            </div>
+            
+          </div>
+          {% for f in fav %}
+            {{f.description}}
+            <div class="container-fluid text-white">
+              <a href="{% url 'favoriteplace' %}"><p>Some Recommandation content</p</a> 
+            </div>
+          {% endfor %}
+        </div> 
+       
+        <!-- <div class="col col-sm-6">
+          <img src="{% static 'img/hotel.jpg' %}" alt="Hotel Image" />
+        </div>
+         -->
+      </form>
+    </section>    
+    <!-- Slider start -->
+     
+
+    <!-- end slider -->
+    <section class="section bg-image overlay" style="background-image: url('images/hero_4.jpg');">
+        <div class="container" >
+          <div class="row align-items-center">
+           
+          
+            </div>
+          </div>
+        </div>
+      </section>
+
+    <script>
+      function totalpay(){
+        var roomamount=document.getElementById('amount').value;
+        var roomqty=document.getElementById('roomsreq').value;
+        var amount_payble=roomamount*roomqty;
+        var result=document.getElementById().innerHTML(amount_payble);
+        console.log(result);
+
+      }
+    </script>
+    
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+    <script src="{% static 'js/jquery.fancybox.min.js' %}"></script>
+    
+    
+    <script src="{% static 'js/aos.js' %}"></script>
+    
+    <script src="{% static 'js/bootstrap-datepicker.js' %}"></script> 
+    <script src="{% static 'js/jquery.timepicker.min.js' %}"></script> 
+
+    
+
+    <script src="{% static 'js/main.js' %}"></script>
+  </body>
+</html>

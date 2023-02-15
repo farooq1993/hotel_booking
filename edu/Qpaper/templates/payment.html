@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+</head>
+<body>
+  <div class="d-flex row">
+    <div class="row">
+      <div class="col-md-12">
+      <h2 class="container-fluid text-primary text-uppercase text-center">Process your Payment Here</h2>
+    </div>
+       
+          <!-- <body> -->
+        <!-- <img src="{% static 'img/hotel.jpg' %}" alt="Not Found" class="img-fluid rounded mx-auto" height="500rem" width="400rem" style="margin-left: 120rem;" /> -->
+       <center>
+        <div class="row" style="width: 50rem; height: inherit;">
+        <div class="card shadow-sm p-3 mb-5 bg-white rounded col-lg-12" style="padding:10rem 5rem; margin: 5rem 10rem; background-color:teal; border-top-left-radius: 5rem; border-bottom-right-radius: 5rem;">
+          <div class="btn_container">
+            <img src="{% static 'img/hotel.jpg' %}" alt="Not Found" class="img-fluid" height="300px" width="550px" />
+            <h4  class="card-title" style="color: white;">Check In Date: {{chk | date:"D d M Y"}}</h4>
+            <h4 class="card-text" style="color: white; margin-top: 2rem;">Check Out Date: {{chkout | date:"D d M Y"}}</h4>
+            <h4 class="card-text" style="color: white; margin-top: 2rem;">Pay: {{amount}}</h4>
+            <!-- Payment Button -->
+            
+            <button class="btn" id="pay-btn" style="margin-top: 5rem; color:#944477; border-radius: 5rem; margin-left: 10rem;" data-payment_button_id="pl_L3wPflIj2QalwT" async>
+              <span>Make Payment</span>
+            </button>
+          </div>
+        </div> 
+       </div>    
+  </div>
+</center>
+  <!-- </body> -->
+
+  <!-- Razorpay's Javascript code. -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+        <script>
+    var options = {
+
+      // Enter the Key ID generated from the Dashboard
+      key: "rzp_live_ObeJRPPN5M7S33",
+       // key:"KTvzhiA0XAcayo",
+
+      // Amount is in currency subunits.
+      // Default currency is INR. Hence,
+      // 50000 refers to 50000 paise
+      amount: "{{amount}}",
+      currency: "INR",
+
+      // Your/store name.
+      name: "Hotel Booking",
+
+      // Pass the `id` obtained in the response of Step 1
+      order_id: "{{ razorpay_order_id }}",
+      callback_url: "{{ callback_url }}",
+    };
+
+    // initialise razorpay with the options.
+    var rzp1 = new Razorpay(options);
+
+    // add event listener to the payment button.
+    document.getElementById("pay-btn").onclick = function (e) {
+      rzp1.open();
+      e.preventDefault();
+    };
+  </script>
+
+        </div>
+</body>
+</html>

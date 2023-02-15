@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Hotels List</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,700' rel='stylesheet' type='text/css'>
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/bootstrap-datetimepicker.min.css' %}" rel="stylesheet"> 
+  <link href="{% static 'css/flexslider.css' %}" rel="stylesheet"> 
+  <link href="{% static 'css/templatemo-style.css' %}" rel="stylesheet">
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <!-- <link href="{% static 'css/style.css' %}" rel="stylesheet"> -->
+  <link rel="stylesheet" type="text/css" href="{% static 'use/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'use/css/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'use/css/iofrm-style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'use/css/iofrm-theme2.css' %}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">        
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+</head>
+<style>
+    .list{
+        margin-top: 1rem;
+        padding: 5rem 5rem;
+        animation: openlist  1 linear 1;
+    }
+    @keyframes openlist{
+    0%{
+        transform: translateY(-80px);
+    }
+
+    100%{
+        transform: translateY(1);
+    }
+}
+
+    .search-btn{
+        width: 8rem;
+        background-color: #1fa1b8;
+        font-size: medium;
+        margin: 1rem;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-style: italic;
+        border-radius: 5rem;
+        
+    }
+    #search-box input{
+        border-radius: 10rem;   
+        margin: 2rem 2rem;
+        align-items: center;
+        height: 5rem;
+        width: 40rem;
+        display: inline;
+        border: 1rem solid rgb(190, 108, 108);
+        border-color: rgb(153, 189, 206);}
+
+    #booknow-btn{
+        font-size: medium;
+        font-weight: 10rem;
+        background-color: #32abaf;
+        border-top-left-radius: 2rem;
+        border-bottom-right-radius: 2rem;
+        margin-right: 10rem;
+    }
+    
+#second-search{
+    margin-right: 10rem;
+    border-width: 10rem;
+}
+
+</style>
+<body style="background-color:#e4e6e3; background-image: linear-gradient(120deg, white 0%, #ffffff96 100%);">
+    <section>
+        <header style="background-color: rgb(146, 206, 216); width: 150rem; margin-left: 5rem;margin-top: 1rem; border-radius: 2rem;">
+            <div class="navbar">
+                <div class="container-fluid">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <ul>
+                            <div class="" style="margin-left: 5rem;">
+                                <a href="#"><li class="nav-item">About</li></a>
+                                
+                                <a href="{% url 'deals' %}"><button class="border border-info rounded-pill" style="height: 5rem;"><li id="price">Best Deal</li></button></a>
+
+                                <a href="#"><li class="nav-item">Let's Work Togethers</li></a>
+                            </div>    
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+    </section>
+    {% if user.is_authenticated %}
+    
+    <ul>
+        <li><div class="pt-5 pl-5"><button class="btn btn-warning btn-lg active text-white float-md-right pt-2" aria-pressed="true">
+            <a href="{% url 'menu'  %}" >Past booking</a>
+        </button></div>
+       </li>
+
+       <li><div class="pt-5 pl-5"><button class="btn btn-primary btn-lg  text-white float-md-right pt-2"  aria-pressed="true">
+        <a href="{% url 'logout' %}" style="margin-right: 10rem;">Logout</a>
+    </button></div>
+   </li>
+        <li> <h5 class="text-primary">You Username: <strong>{{request.user}}</strong></h5></li>
+    </ul>
+    
+    {% endif %}
+    
+    <div class="d-inline" id="search-box">
+        <div>
+            <form method="POST" action="{% url 'search' %}" class="row">
+                {% csrf_token %}
+           <center> 
+            <!-- Date -->
+            <div style="background-color: #eee !important;; margin-left: 5rem;line-height: 1.625 !important; border:1px solid #bfc1c5; border-radius: 2rem;">
+            <input type="search" name='search' placeholder="search here" id="input-box" style="height: 7rem; font-size: medium; padding-left: 5rem; color: #1f1208; "/>
+            <label style="font-size: medium; font-weight: 10rem; color: #eb7565;">Checkin Date</label>
+            <input type="datetime-local" id="input-box" placeholder="checkin date" name='check_in'>
+            <label style="font-size: medium;font-weight: 10rem; color: #eb7565;">Checkout Date</label>
+            <input type="datetime-local"  id="input-box" placeholder="checkout date" name='check_out'><br>
+            <button class="search-btn btn btn-primary bg-red" type="submit" onclick="validation()" style="height: 3rem;"> 
+                <i class='fa fa-search' style='color:#35ddf3'></i>
+            </button>
+            </div>
+        </center>
+    </form>
+        </div>
+    </div>
+    <a href="#">
+        <i class='fa fa-arrow-up fa-5x' style='color:#0c215c; position: fixed; margin-top: 50rem; width: 100rem; height: 20px;width: 80px; '  ></i>
+    </a>
+    {% for i in alltour %}
+    <div class="col-lg-3 col-md-3 col-sm-3 list border " style="border-radius: 2rem; border-color: solid #35ddf3; margin-inline: 2rem;">
+        <div class="tm-home-box-1 tm-home-box-1-1 tm-home-box-1-center">
+            <img src="{{i.Event_img.url}}" alt="img not found" class="img-responsive" width="300rem" style="border-radius: 2rem ;">
+            <!-- <img src="{% static 'img/index-01.jpg' %}" alt="image" class="img-responsive"> -->
+            <a href="{% url 'bookingform' i.id %}">
+                
+                <div style="border-radius:1rem;font-size: medium; font-style: oblique; font-family: serif; color: rgb(7, 61, 131); ">
+                    <span class="container" style="border-radius: 2rem ;font-weight: 5rem;"><stron>{{i.hotel_name}}</stron></span>
+                    
+                    <span class="container-fluid" style="border-radius: 2rem ;"><h5>Rs <strong>{{i.amount}}.00</strong></span></h5><br>
+                    <p>Single Night</p>
+                    <!-- <span class="container-fluid py-2"><h5><strong>{{i.availble_date}}.00</strong></span></h5><br> -->
+                </div>
+                <span style="font-size: small; font-weight: 2rem; font-family:sans-serif; color:rgb(60, 90, 155) !important;">{{i.description}}</span>
+                <button class="btn btn-block text-uppercase text-white btn-sm"  id="booknow-btn">Book Now</button>		
+            </a>	
+        </div>			
+    </div>
+    {% endfor %}
+
+    
+    <script>
+        function validation(){
+            var inputbox=document.getElementById("input-box");
+            if (inputbox==" "){
+                alert("input box is empty");
+                consol.log("Validation is done");
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>
